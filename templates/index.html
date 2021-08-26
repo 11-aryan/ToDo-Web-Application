@@ -1,0 +1,81 @@
+
+    {% extends 'base.html' %}
+    {% block title %} Home {% endblock title %}
+    {% block body %}     
+
+    <!-- Form -->
+    <div class = "container my-4">
+        <form action="/" method="POST">
+            <div class="form-group">
+              <label for="title">Todo Title</label>
+              <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp" placeholder="Enter the title">
+              <small id="emailHelp" class="form-text text-muted"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="desc">Todo Description</label>
+              <input type="text" class="form-control" name="desc" id="desc" placeholder="Description">
+            </div>            
+
+            <button type="submit" class="btn btn-dark">Add to list</button>
+        </form>
+    </div>
+
+    <!-- Table -->
+    <div class = "container my-4">
+            
+            {% if allTodo|length == 0 %}
+              <div class="alert alert-info" role="alert">
+                No Data Available to Display. Add Your First Todo !
+              </div>
+
+            {% else %}
+
+                <table class="table">
+
+                  <h2>Todo: </h2>
+
+                  <thead>
+                      <tr>
+                        <th scope="col">Sno.</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Time Created</th>
+                        <th scope="col">Actions </th>
+                      </tr>
+                  </thead>
+      
+                  <tbody>
+
+                    {% for todo in allTodo %}
+                    <tr>
+                          <th scope="row"> {{loop.index}} </th>
+                          <td> {{todo.title}} </td>
+                          <td> {{todo.desc}} </td>
+                          <td> {{todo.date_created}} </td>
+                          <td> 
+                            <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-1"> Update </button>
+                            <a href="/delete/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-1"> Delete </button>                         
+                          </td>      
+                    </tr>
+                    {% endfor %}
+
+                  </tbody>
+               </table> 
+
+                          
+            {% endif %}            
+              
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    {% endblock body %}
+
+  </body>
+</html>
